@@ -7,15 +7,21 @@ fn main() {
 
     let elves: Vec<&str> = input.split("\n\n").collect();
 
-    println!("elves[0]:\n{:#?}", elves[0]);
-    println!("elves[0].split:\n{:#?}", elves[0].split('\n').collect::<Vec<&str>>());
-    println!("elves[0].sum:\n{:#?}", elves[0].split('\n').map(|food| food.parse::<u32>().unwrap()).sum::<u32>());
-
     let max: u32 = elves.iter().map(|inventory| inventory.split('\n')
         .map(|food| food.parse::<u32>().unwrap()).sum())
         .max().unwrap();
 
-    println!("Day01: {}", max);
+    println!("Part 1: {}", max);
+
+    let mut elf_sums: Vec<u32> = elves.iter().map(|inventory| inventory.split('\n')
+    .map(|food| food.parse::<u32>().unwrap()).sum()).collect();
+
+    elf_sums.sort();
+
+    let sum_top_3: u32 = elf_sums[elf_sums.len()-3..].iter().sum();
+
+    println!("Part 2: {sum_top_3}")
+
 }
 
 fn read_input(path: &str) -> String {
